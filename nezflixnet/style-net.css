@@ -1016,10 +1016,10 @@ a.side-list:hover {
   color: #fff;
 }
 .btn-watch {
-  background-color: #2f11a6;
+  background-color: #0069c3;
 }
 .btn-download {
-  background-color: #2f11a6;
+  background-color: #d51441;
 }
 .btn-offer {
   outline: none !important;
@@ -1075,7 +1075,7 @@ a.side-list:hover {
 }
 .btn-watch:hover {
   color: #fff;
-  background-color: #1468b1;
+  background-color: #0089ff;
 }
 .btn-download:hover {
   color: #fff;
