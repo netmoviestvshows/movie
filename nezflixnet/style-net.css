@@ -806,15 +806,16 @@ h3.sub-title {
 }
 
 .sub-section span, .widget-titles span {
-  float: left;
-  margin-right: 20px;
-  padding: 5px 10px;
-  text-transform: uppercase;
-  color: #fff;
-  background: #00000000;
- /* background: #1468b1; */
-  font-size: 18px;
-  border-left: 2px solid #1468b1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    float: left;
+    margin-right: 20px;
+    padding: 0px 10px;
+    /* text-transform: uppercase; */
+    color: #fff;
+    background: #00000000;
+    /* background: #1468b1; */
+    font-size: 26px;
+    border-left: 2px solid #1468b1;
 }
 
 .sub-section span, .widget-titles:after {
