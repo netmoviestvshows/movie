@@ -218,6 +218,16 @@ a.nodecor:focus {
 .button-live {
   margin-top: -3px;
 }
+.hdQuality {
+  background: #00acc1;
+    color: #212529;
+    font-weight: 500;
+    font-size: .85em;
+    padding: 4px 6px;
+    margin-right: 5px;
+    border-radius: 3px;
+    text-shadow: none;
+}
 .text_live {
   margin-top: -2px;
   padding-right: 0px;
