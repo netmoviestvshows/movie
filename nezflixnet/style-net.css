@@ -462,7 +462,7 @@ a.nodecor:focus {
   background-color: rgba(0, 0, 0, 0.7);
   font-size: larger;
   font-family: Oswald, Sans-serif;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 #player-modal .modal-body .modal-text {
   opacity: 1;
