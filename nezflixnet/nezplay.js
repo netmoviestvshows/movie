@@ -52,18 +52,17 @@ eval(
 /* ---------------------------------------------- /*
     Slider home
 /* ---------------------------------------------- */
-var swiper = new Swiper(".swiper-container", {
-  slidesPerView: 2, // Jumlah poster yang ditampilkan per slide
-  spaceBetween: 20, // Jarak antara poster
-  loop: true, // Aktifkan pengulangan slideshow
-  autoplay: {
-    delay: 3000, // Waktu tampilan otomatis (dalam milidetik)
-  },
-  navigation: {
-    nextEl: ".swiper-button-next-custom",
-    prevEl: ".swiper-button-prev-custom",
-  },
-  breakpoints: {
+var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 8,
+        slidesPerGroup: 1,
+        spaceBetween: 18, // Jarak antara poster
+        loop: true,
+        loopAdditionalSlides: 3, // Pastikan ada slide tambahan untuk loop yang mulus
+        navigation: {
+          nextEl: '.swiper-button-next-custom',
+          prevEl: '.swiper-button-prev-custom',
+        },
+        breakpoints: {
     400: {
       slidesPerView: 2,
     },
@@ -75,7 +74,10 @@ var swiper = new Swiper(".swiper-container", {
     },
   },
 });
-var apiKey = "a79576e54c5bbb893011b98ca48f2460";
+
+var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
+var accessToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YTcwYTMwYjk1ODE5Y2IzMjA3ZTUxZjE4ZGFiNDgzNCIsInN1YiI6IjYxY2YxOTEyYWY2ZTk0MDA5ODQ3OGRkZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pNjePjoP03wPNnH-lYvGa9Uqn0g6WIm1WzQXaOY3Vj8';
+
 
 // off canavas
 $(document).ready(function () {
