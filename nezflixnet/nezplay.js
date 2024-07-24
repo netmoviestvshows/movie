@@ -52,28 +52,44 @@ eval(
 /* ---------------------------------------------- /*
     Slider home
 /* ---------------------------------------------- */
-var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 8,
-        slidesPerGroup: 1,
-        spaceBetween: 18, // Jarak antara poster
-        loop: true,
-        loopAdditionalSlides: 3, // Pastikan ada slide tambahan untuk loop yang mulus
-        navigation: {
-          nextEl: '.swiper-button-next-custom',
-          prevEl: '.swiper-button-prev-custom',
-        },
-        breakpoints: {
-    400: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 4,
-    },
-    992: {
-      slidesPerView: 8,
-    },
-  },
-});
+document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 8,
+          slidesPerGroup: 1,
+          spaceBetween: 18, // Jarak antara poster
+          loop: true,
+          loopAdditionalSlides: 3, // Pastikan ada slide tambahan untuk loop yang mulus
+          navigation: {
+            nextEl: '.swiper-button-next-custom',
+            prevEl: '.swiper-button-prev-custom',
+          },
+          autoplay: {
+            delay: 5000, // Delay 5 detik
+            disableOnInteraction: false, // Tetap berjalan meskipun ada interaksi pengguna
+          },
+          breakpoints: {
+            400: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+            992: {
+              slidesPerView: 8,
+            },
+          },
+        });
+  
+        // Menambahkan event listener untuk menghentikan autoplay ketika mouse masuk
+        document.querySelector('.swiper-container').addEventListener('mouseenter', function() {
+          swiper.autoplay.stop();
+        });
+  
+        // Menambahkan event listener untuk memulai ulang autoplay ketika mouse keluar
+        document.querySelector('.swiper-container').addEventListener('mouseleave', function() {
+          swiper.autoplay.start();
+        });
+      });
 
 var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
 var accessToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YTcwYTMwYjk1ODE5Y2IzMjA3ZTUxZjE4ZGFiNDgzNCIsInN1YiI6IjYxY2YxOTEyYWY2ZTk0MDA5ODQ3OGRkZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pNjePjoP03wPNnH-lYvGa9Uqn0g6WIm1WzQXaOY3Vj8';
