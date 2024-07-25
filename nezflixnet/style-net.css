@@ -1269,10 +1269,17 @@ a.side-list:hover {
 .media-controls #setting_btn.dropup .dropdown-menu li.active {
   background-color: #1468b1;
 }
+.dropdown-menu {background-color: #212529;}
+.dropdown-menu>li>a {
+    display: block;
+    margin: 0 10px;
+    padding: 3px 10px;
+    color: #c5c5c5;
+}
 .dropdown-menu > li > a:focus,
 .dropdown-menu > li > a:hover {
-  color: #004160;
-  background-color: #857f7f8f;
+  color: #05bcf5;
+  background-color: rgb(2 1 20 / 30%);
 }
 .video:hover .media-controls {
   bottom: 0px;
