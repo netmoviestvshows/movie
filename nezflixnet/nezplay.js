@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disableOnInteraction: false, // Tetap berjalan meskipun ada interaksi pengguna
           },
           breakpoints: {
-            400: {
+            320: {
               slidesPerView: 2,
             },
             768: {
