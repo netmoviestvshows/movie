@@ -170,14 +170,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updatePopularPages = function() {
         let startPage, endPage;
-        if ($scope.popularTotalPages <= 6) {
+        if ($scope.popularTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.popularTotalPages;
         } else if ($scope.popularCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.popularCurrentPage + 2 >= $scope.popularTotalPages) {
-            startPage = $scope.popularTotalPages - 5;
+            startPage = $scope.popularTotalPages - 4;
             endPage = $scope.popularTotalPages;
         } else {
             startPage = $scope.popularCurrentPage - 3;
@@ -189,14 +189,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateNowPlayingPages = function() {
         let startPage, endPage;
-        if ($scope.nowPlayingTotalPages <= 6) {
+        if ($scope.nowPlayingTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.nowPlayingTotalPages;
         } else if ($scope.nowPlayingCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.nowPlayingCurrentPage + 2 >= $scope.nowPlayingTotalPages) {
-            startPage = $scope.nowPlayingTotalPages - 5;
+            startPage = $scope.nowPlayingTotalPages - 4;
             endPage = $scope.nowPlayingTotalPages;
         } else {
             startPage = $scope.nowPlayingCurrentPage - 3;
@@ -208,14 +208,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateTopRatedPages = function() {
         let startPage, endPage;
-        if ($scope.topRatedTotalPages <= 6) {
+        if ($scope.topRatedTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.topRatedTotalPages;
         } else if ($scope.topRatedCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.topRatedCurrentPage + 2 >= $scope.topRatedTotalPages) {
-            startPage = $scope.topRatedTotalPages - 5;
+            startPage = $scope.topRatedTotalPages - 4;
             endPage = $scope.topRatedTotalPages;
         } else {
             startPage = $scope.topRatedCurrentPage - 3;
@@ -227,14 +227,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateComingSoonPages = function() {
         let startPage, endPage;
-        if ($scope.comingSoonTotalPages <= 6) {
+        if ($scope.comingSoonTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.comingSoonTotalPages;
         } else if ($scope.comingSoonCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.comingSoonCurrentPage + 2 >= $scope.comingSoonTotalPages) {
-            startPage = $scope.comingSoonTotalPages - 5;
+            startPage = $scope.comingSoonTotalPages - 4;
             endPage = $scope.comingSoonTotalPages;
         } else {
             startPage = $scope.comingSoonCurrentPage - 3;
@@ -246,14 +246,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateTopRatedTvPages = function() {
         let startPage, endPage;
-        if ($scope.topRatedTvTotalPages <= 6) {
+        if ($scope.topRatedTvTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.topRatedTvTotalPages;
         } else if ($scope.topRatedTvCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.topRatedTvCurrentPage + 2 >= $scope.topRatedTvTotalPages) {
-            startPage = $scope.topRatedTvTotalPages - 5;
+            startPage = $scope.topRatedTvTotalPages - 4;
             endPage = $scope.topRatedTvTotalPages;
         } else {
             startPage = $scope.topRatedTvCurrentPage - 3;
@@ -265,14 +265,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateAiringTodayPages = function() {
         let startPage, endPage;
-        if ($scope.airingTodayTotalPages <= 6) {
+        if ($scope.airingTodayTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.airingTodayTotalPages;
         } else if ($scope.airingTodayCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.airingTodayCurrentPage + 2 >= $scope.airingTodayTotalPages) {
-            startPage = $scope.airingTodayTotalPages - 5;
+            startPage = $scope.airingTodayTotalPages - 4;
             endPage = $scope.airingTodayTotalPages;
         } else {
             startPage = $scope.airingTodayCurrentPage - 3;
@@ -284,14 +284,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updateOnAirPages = function() {
         let startPage, endPage;
-        if ($scope.onAirTotalPages <= 6) {
+        if ($scope.onAirTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.onAirTotalPages;
         } else if ($scope.onAirCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.onAirCurrentPage + 2 >= $scope.onAirTotalPages) {
-            startPage = $scope.onAirTotalPages - 5;
+            startPage = $scope.onAirTotalPages - 4;
             endPage = $scope.onAirTotalPages;
         } else {
             startPage = $scope.onAirCurrentPage - 3;
@@ -303,14 +303,14 @@ app.controller('mtController', function($scope, $http, $location) {
 
     $scope.updatePopularTvPages = function() {
         let startPage, endPage;
-        if ($scope.popularTvTotalPages <= 6) {
+        if ($scope.popularTvTotalPages <= 5) {
             startPage = 1;
             endPage = $scope.popularTvTotalPages;
         } else if ($scope.popularTvCurrentPage <= 3) {
             startPage = 1;
-            endPage = 6;
+            endPage = 5;
         } else if ($scope.popularTvCurrentPage + 2 >= $scope.popularTvTotalPages) {
-            startPage = $scope.popularTvTotalPages - 5;
+            startPage = $scope.popularTvTotalPages - 4;
             endPage = $scope.popularTvTotalPages;
         } else {
             startPage = $scope.popularTvCurrentPage - 3;
