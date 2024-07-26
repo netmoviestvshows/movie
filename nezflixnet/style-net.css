@@ -2463,6 +2463,7 @@ color: #0088ff;
   grid-gap: 5px;
 }
 
+
 .poster {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -2527,12 +2528,15 @@ div.rating-critic {
   width: 100%;
 }
 /* Media Query untuk responsif pada layar yang lebih kecil */
-@media (max-width: 768px) {
+
+@media screen and (max-width: 576px) {
+    .poster{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    }
+@media screen and (max-width: 768px) {
   .poster {
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ); /* Ubah menjadi 4 kolom pada layar kecil */
+    grid-template-columns: repeat(4, 1fr ); /* Ubah menjadi 4 kolom pada layar kecil */
   }
   div.rating-critic {
     margin-right: 206px;
