@@ -180,7 +180,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.popularTotalPages - 4;
             endPage = $scope.popularTotalPages;
         } else {
-            startPage = $scope.popularCurrentPage - 3;
+            startPage = $scope.popularCurrentPage - 2;
             endPage = $scope.popularCurrentPage + 2;
         }
 
@@ -199,7 +199,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.nowPlayingTotalPages - 4;
             endPage = $scope.nowPlayingTotalPages;
         } else {
-            startPage = $scope.nowPlayingCurrentPage - 3;
+            startPage = $scope.nowPlayingCurrentPage - 2;
             endPage = $scope.nowPlayingCurrentPage + 2;
         }
 
@@ -218,7 +218,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.topRatedTotalPages - 4;
             endPage = $scope.topRatedTotalPages;
         } else {
-            startPage = $scope.topRatedCurrentPage - 3;
+            startPage = $scope.topRatedCurrentPage - 2;
             endPage = $scope.topRatedCurrentPage + 2;
         }
 
@@ -237,7 +237,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.comingSoonTotalPages - 4;
             endPage = $scope.comingSoonTotalPages;
         } else {
-            startPage = $scope.comingSoonCurrentPage - 3;
+            startPage = $scope.comingSoonCurrentPage - 2;
             endPage = $scope.comingSoonCurrentPage + 2;
         }
 
@@ -256,7 +256,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.topRatedTvTotalPages - 4;
             endPage = $scope.topRatedTvTotalPages;
         } else {
-            startPage = $scope.topRatedTvCurrentPage - 3;
+            startPage = $scope.topRatedTvCurrentPage - 2;
             endPage = $scope.topRatedTvCurrentPage + 2;
         }
 
@@ -275,7 +275,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.airingTodayTotalPages - 4;
             endPage = $scope.airingTodayTotalPages;
         } else {
-            startPage = $scope.airingTodayCurrentPage - 3;
+            startPage = $scope.airingTodayCurrentPage - 2;
             endPage = $scope.airingTodayCurrentPage + 2;
         }
 
@@ -294,7 +294,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.onAirTotalPages - 4;
             endPage = $scope.onAirTotalPages;
         } else {
-            startPage = $scope.onAirCurrentPage - 3;
+            startPage = $scope.onAirCurrentPage - 2;
             endPage = $scope.onAirCurrentPage + 2;
         }
 
@@ -313,7 +313,7 @@ app.controller('mtController', function($scope, $http, $location) {
             startPage = $scope.popularTvTotalPages - 4;
             endPage = $scope.popularTvTotalPages;
         } else {
-            startPage = $scope.popularTvCurrentPage - 3;
+            startPage = $scope.popularTvCurrentPage - 2;
             endPage = $scope.popularTvCurrentPage + 2;
         }
 
