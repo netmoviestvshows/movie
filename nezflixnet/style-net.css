@@ -2216,7 +2216,7 @@ opacity: 0;
     min-width: 60px;
 }
 .custom-text {
-    bottom: 30px;
+    bottom: 30px !important;
    }
 }
 /* mobile video play movie end */
