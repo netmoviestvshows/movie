@@ -411,6 +411,12 @@ a.nodecor:focus {
  text-align : right;
  z-index: 2;
 }
+@media (max-width: 767px) {
+.iklanInModal {
+    top: 0;
+    text-align: center;
+}
+}
 #player-modal .modal-header {
   font-family: Oswald, Sans-serif;
   font-size: 20px;
