@@ -2199,6 +2199,28 @@ color: #0088ff;
   top: 6px;
   left: 0;
 }
+
+/* mobile video play movie */
+@media (min-width:320px) {
+.plyr__volume input[type=range] {
+    display: none;
+ }
+}
+@media (min-width: 479px) {
+
+.plyr__controls .plyr__controls__item.plyr__progress__container{
+opacity: 0;
+}
+.plyr__volume input[type=range] {
+    max-width: 60px;
+    min-width: 60px;
+}
+.custom-text {
+    bottom: 30px;
+   }
+}
+/* mobile video play movie end */
+
 @media (max-width: 479px) {
   .btn-offer {
     display: block;
