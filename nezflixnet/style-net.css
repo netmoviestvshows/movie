@@ -413,8 +413,9 @@ a.nodecor:focus {
 }
 @media (max-width: 767px) {
 .iklanInModal {
-    top: 0;
-    text-align: center;
+ top: 0;
+ text-align: center;
+ background: #070707;
 }
 }
 #player-modal .modal-header {
