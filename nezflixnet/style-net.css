@@ -420,7 +420,7 @@ a.nodecor:focus {
   font-family: Oswald, Sans-serif;
   font-size: 20px;
   text-transform: math-auto;
-  position: absolute;
+  position: relative;
   width: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.8);
