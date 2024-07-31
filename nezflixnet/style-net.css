@@ -406,16 +406,14 @@ a.nodecor:focus {
   background-color: #111;
 }
 .iklanInModal {
- position:relative;
- top:60px;
- text-align : right;
- z-index: 2;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    z-index: 2;
 }
 @media (max-width: 767px) {
 .iklanInModal {
- top: 0;
  text-align: center;
- background: #070707;
 }
 }
 #player-modal .modal-header {
