@@ -421,7 +421,7 @@ a.nodecor:focus {
 #player-modal .modal-header {
   font-family: Oswald, Sans-serif;
   font-size: 20px;
-  text-transform: uppercase;
+  text-transform: math-auto;
   position: absolute;
   width: 100%;
   z-index: 1;
