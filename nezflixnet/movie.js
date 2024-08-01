@@ -16,6 +16,9 @@
     };
   })
         .controller("mtController", function ($scope, $http, $window) {
+         var vm = this;
+                vm.movie = {};
+                vm.pageTitle = '';
           $scope.getBackdropUrl = function (backdropPath) {
             return backdropPath
               ? "https://image.tmdb.org/t/p/w780/" + backdropPath
@@ -57,6 +60,16 @@
         .catch(function (error) {
        console.error("Error fetching similar movies:", error);
        });
+          vm.movie = response.data;
+
+                        // Perbarui judul halaman setelah data dimuat
+                        $scope.pageTitle = vm.movie.title + ' - My Blog Title';
+
+                        // Atur judul halaman
+                        document.title = $scope.pageTitle;
+                    }, function(error) {
+                        console.error('Error fetching movie data:', error);
+                    });
        }
     
       //  cast detail
