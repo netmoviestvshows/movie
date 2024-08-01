@@ -1,4 +1,4 @@
-angular
+ angular
         .module("mtApp", [])
         .filter("duration", function () {
     return function (input) {
@@ -87,17 +87,14 @@ $http
               .then(function (movieResponse) {
                 vm.movie = movieResponse.data;
 
-                // Update page title after movie data is loaded
-                if (vm.movie.title) {
-                  $scope.pageTitle = vm.movie.title + " - Best MovieTV21";
-                  document.title = $scope.pageTitle;
-                } else {
-                  $scope.pageTitle = "Title not found - Best MovieTV21";
-                }
-              })
-              .catch(function (error) {
-                console.error("Error fetching movie details:", error);
-              });
+$scope.pageTitle = vm.movie.title ? vm.movie.title + " - Best MovieTV21" : "Title not found - Best MovieTV21";
+document.title = $scope.pageTitle;
+
+updateTwitterMetaTags(vm.movie);
+})
+.catch(function (error) {
+console.error("Error fetching movie details:", error);
+});
 
     // Pastikan data kru tersedia dalam respons API
     if (credits && credits.crew) {
@@ -420,6 +417,32 @@ $scope.getRandomImagePath = function() {
             console.error("Movie ID not found in URL");
           }
           
+          function updateTwitterMetaTags(movie) {
+      if (movie) {
+        var title = movie.title || "Movie Title";
+        var description = movie.overview || "Movie description not available.";
+        var imageUrl = "https://image.tmdb.org/t/p/w300/" + (movie.poster_path || "default.jpg");
+
+        var metaTags = [
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description },
+          { name: 'twitter:image', content: imageUrl }
+        ];
+
+        metaTags.forEach(function (tag) {
+          var metaElement = document.querySelector('meta[name="' + tag.name + '"]');
+          if (metaElement) {
+            metaElement.setAttribute('content', tag.content);
+          } else {
+            metaElement = document.createElement('meta');
+            metaElement.setAttribute('name', tag.name);
+            metaElement.setAttribute('content', tag.content);
+            document.head.appendChild(metaElement);
+          }
+        });
+      }
+    }
+    
 $scope.goToMovieDetail = function (id, title) {
   // Mengganti spasi dengan tanda "-" dan mengubah huruf menjadi huruf kecil (lowercase)
   var formattedTitle = title.replace(/:/g, '').replace(/ /g, '-').toLowerCase();
