@@ -443,6 +443,21 @@ $scope.getRandomImagePath = function() {
       }
     }
     
+    // Fetch movie details and update meta tags
+    var movieId = getUrlParameters().id.split("/")[0]; // Assuming URL format `id/title`
+    if (movieId) {
+      $http.get("https://api.themoviedb.org/3/movie/" + movieId + "?language=en-US&api_key=" + apiKey)
+        .then(function (response) {
+          vm.movie = response.data;
+          $scope.pageTitle = vm.movie.title ? vm.movie.title + " - Best MovieTV21" : "Title not found - Best MovieTV21";
+          document.title = $scope.pageTitle;
+          updateTwitterMetaTags(vm.movie); // Ensure this is called after data is loaded
+        })
+        .catch(function (error) {
+          console.error("Error fetching movie details:", error);
+        });
+    }
+  
 $scope.goToMovieDetail = function (id, title) {
   // Mengganti spasi dengan tanda "-" dan mengubah huruf menjadi huruf kecil (lowercase)
   var formattedTitle = title.replace(/:/g, '').replace(/ /g, '-').toLowerCase();
