@@ -1,4 +1,4 @@
- angular
+angular
         .module("mtApp", [])
         .filter("duration", function () {
     return function (input) {
@@ -16,9 +16,10 @@
     };
   })
         .controller("mtController", function ($scope, $http, $window) {
-         var vm = this;
-                vm.movie = {};
-                vm.pageTitle = '';
+          var vm = this;
+      vm.movie = {};
+      $scope.pageTitle = "Loading...";
+
           $scope.getBackdropUrl = function (backdropPath) {
             return backdropPath
               ? "https://image.tmdb.org/t/p/w780/" + backdropPath
@@ -70,17 +71,33 @@ $http
       "/credits?language=en-US&api_key=" +
       apiKey
   )
+
   .then(function (response) {
-    vm.movie = response.data;
-// Perbarui judul halaman setelah data dimuat
-$scope.pageTitle = vm.movie.title + ' - My Blog Title';
-// Atur judul halaman
-document.title = $scope.pageTitle;
-}, function(error) {
-console.error('Error fetching movie data:', error);
-   
     var credits = response.data;
     $scope.cast = response.data.cast;
+
+     // Update the movie details
+     $http
+              .get(
+                "https://api.themoviedb.org/3/movie/" +
+                  movieId +
+                  "?language=en-US&api_key=" +
+                  apiKey
+              )
+              .then(function (movieResponse) {
+                vm.movie = movieResponse.data;
+
+                // Update page title after movie data is loaded
+                if (vm.movie.title) {
+                  $scope.pageTitle = vm.movie.title + " - Best MovieTV21";
+                  document.title = $scope.pageTitle;
+                } else {
+                  $scope.pageTitle = "Title not found - Best MovieTV21";
+                }
+              })
+              .catch(function (error) {
+                console.error("Error fetching movie details:", error);
+              });
 
     // Pastikan data kru tersedia dalam respons API
     if (credits && credits.crew) {
