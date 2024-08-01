@@ -60,16 +60,6 @@
         .catch(function (error) {
        console.error("Error fetching similar movies:", error);
        });
-          vm.movie = response.data;
-
-                        // Perbarui judul halaman setelah data dimuat
-                        $scope.pageTitle = vm.movie.title + ' - My Blog Title';
-
-                        // Atur judul halaman
-                        document.title = $scope.pageTitle;
-                    }, function(error) {
-                        console.error('Error fetching movie data:', error);
-                    });
        }
     
       //  cast detail
@@ -81,6 +71,14 @@ $http
       apiKey
   )
   .then(function (response) {
+    vm.movie = response.data;
+// Perbarui judul halaman setelah data dimuat
+$scope.pageTitle = vm.movie.title + ' - My Blog Title';
+// Atur judul halaman
+document.title = $scope.pageTitle;
+}, function(error) {
+console.error('Error fetching movie data:', error);
+   
     var credits = response.data;
     $scope.cast = response.data.cast;
 
