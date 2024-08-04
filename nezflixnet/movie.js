@@ -17,10 +17,8 @@ angular
   })
   .controller("mtController", function ($scope, $http, $window, $timeout, $document) {
           $scope.getBackdropUrl = function (backdropPath) {
-            return backdropPath
-              ? "https://image.tmdb.org/t/p/w780/" + backdropPath
-              : "";
-          };
+            return backdropPath ? "https://image.tmdb.org/t/p/w780/" + backdropPath : "";
+    };
           var params = getUrlParameters();
           var queryParams = new URLSearchParams(window.location.search);
     var movieParam = queryParams.get("id");
@@ -29,22 +27,32 @@ angular
 
           // Function to set Open Graph and Twitter meta tags
           function setMetaTags(movie) {
-            var title = movie.title || '';
-            var description = movie.overview || '';
-            var imageUrl = movie.poster_path ? "https://image.tmdb.org/t/p/w300/" + movie.poster_path : "https://sportxyou.github.io/movie-tv/img/noposter.jpg";
-            var url = $window.location.href;
+      var title = movie.title || '';
+      var description = movie.overview || '';
+      var imageUrl = movie.poster_path ? "https://image.tmdb.org/t/p/w300/" + movie.poster_path : "https://sportxyou.github.io/movie-tv/img/noposter.jpg";
+      var url = $window.location.href;
 
             // Open Graph tags
-            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
-            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
-            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+      var ogTitle = document.querySelector('meta[property="og:title"]');
+      var ogDescription = document.querySelector('meta[property="og:description"]');
+      var ogImage = document.querySelector('meta[property="og:image"]');
+      var ogUrl = document.querySelector('meta[property="og:url"]');
+      
+      if (ogTitle) ogTitle.setAttribute('content', title);
+      if (ogDescription) ogDescription.setAttribute('content', description);
+      if (ogImage) ogImage.setAttribute('content', imageUrl);
+      if (ogUrl) ogUrl.setAttribute('content', url);
 
-            // Twitter meta tags
-            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
-            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
-            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
-            document.querySelector('meta[name="twitter:url"]').setAttribute('content', url);
+         // Twitter meta tags
+      var twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      var twitterDescription = document.querySelector('meta[name="twitter:description"]');
+      var twitterImage = document.querySelector('meta[name="twitter:image"]');
+      var twitterUrl = document.querySelector('meta[name="twitter:url"]');
+      
+      if (twitterTitle) twitterTitle.setAttribute('content', title);
+      if (twitterDescription) twitterDescription.setAttribute('content', description);
+      if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+      if (twitterUrl) twitterUrl.setAttribute('content', url);
 
         // Set the page title with prefix and suffix
   var formattedTitle = 'Watch ' + title + ' - BestMovieTV21';
