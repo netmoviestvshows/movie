@@ -1,4 +1,4 @@
- angular
+angular
         .module("mtApp", [])
         .filter("duration", function () {
     return function (input) {
@@ -15,11 +15,7 @@
       return formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
     };
   })
-        .controller("mtController", function ($scope, $http, $window) {
-          var vm = this;
-      vm.movie = {};
-      $scope.pageTitle = "Loading...";
-
+  .controller("mtController", function ($scope, $http, $window, $timeout, $document) {
           $scope.getBackdropUrl = function (backdropPath) {
             return backdropPath
               ? "https://image.tmdb.org/t/p/w780/" + backdropPath
@@ -27,7 +23,48 @@
           };
           var params = getUrlParameters();
           var queryParams = new URLSearchParams(window.location.search);
-          var movieParam = queryParams.get("id");
+    var movieParam = queryParams.get("id");
+    var idAndTitle = movieParam.split("/");
+    var movieId = idAndTitle[0];
+
+          // Function to set Open Graph and Twitter meta tags
+          function setMetaTags(movie) {
+            var title = movie.title || '';
+            var description = movie.overview || '';
+            var imageUrl = movie.poster_path ? "https://image.tmdb.org/t/p/w300/" + movie.poster_path : "https://sportxyou.github.io/movie-tv/img/noposter.jpg";
+            var url = $window.location.href;
+
+            // Open Graph tags
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+
+            // Twitter meta tags
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
+            document.querySelector('meta[name="twitter:url"]').setAttribute('content', url);
+
+        // Set the page title with prefix and suffix
+  var formattedTitle = 'Watch ' + title + ' - BestMovieTV21';
+  $document[0].title = formattedTitle; // Update page title
+}
+
+          // Fetch movie details
+          $http.get("https://api.themoviedb.org/3/movie/" + movieId + "?language=en-US&api_key=" + apiKey)
+            .then(function (response) {
+              $scope.movie = response.data;
+
+              // Set meta tags once movie data is loaded
+              $timeout(function() {
+                setMetaTags($scope.movie);
+              });
+            })
+            .catch(function (error) {
+              console.error("Error fetching movie details:", error);
+            });
+            
         // now play movie
            $http
               .get(
@@ -71,30 +108,9 @@ $http
       "/credits?language=en-US&api_key=" +
       apiKey
   )
-
   .then(function (response) {
     var credits = response.data;
     $scope.cast = response.data.cast;
-
-     // Update the movie details
-     $http
-              .get(
-                "https://api.themoviedb.org/3/movie/" +
-                  movieId +
-                  "?language=en-US&api_key=" +
-                  apiKey
-              )
-              .then(function (movieResponse) {
-                vm.movie = movieResponse.data;
-
-$scope.pageTitle = vm.movie.title ? vm.movie.title + " - Best MovieTV21" : "Title not found - Best MovieTV21";
-document.title = $scope.pageTitle;
-
-updateTwitterMetaTags(vm.movie);
-})
-.catch(function (error) {
-console.error("Error fetching movie details:", error);
-});
 
     // Pastikan data kru tersedia dalam respons API
     if (credits && credits.crew) {
@@ -206,7 +222,7 @@ $scope.getRandomImagePath = function() {
               // Mendapatkan data produksi dari respons
               var productionCountries = $scope.movie.production_countries;
 
-              // Menyimpan nama-nama negara dalam variabel $scope.productionCountries
+              // Menyimpan  $scope.productionCountries
               $scope.productionCountries = productionCountries.map(function (
                 country
               ) {
@@ -216,7 +232,7 @@ $scope.getRandomImagePath = function() {
               // Mendapatkan data perusahaan dari respons
               var productionCompanies = $scope.movie.production_companies;
 
-              // Menyimpan nama-nama perusahaan dalam variabel $scope.productionCompanies
+              // Menyimpan  $scope.productionCompanies
               $scope.productionCompanies = productionCompanies.map(function (
                 company
               ) {
@@ -396,7 +412,7 @@ $scope.getRandomImagePath = function() {
 
           if (movieId) {
             // Memisahkan ID film dari judul
-            var idParts = movieId.split("/"); // Memisahkan berdasarkan tanda hubung (slash)
+            var idParts = movieId.split("/"); // (slash)
             var actualMovieId = idParts[0]; // Mengambil ID film yang sesuai
 
             function loadMovieData(movieId) {
@@ -417,53 +433,11 @@ $scope.getRandomImagePath = function() {
             console.error("Movie ID not found in URL");
           }
           
-          function updateTwitterMetaTags(movie) {
-      if (movie) {
-        var title = movie.title || "Movie Title";
-        var description = movie.overview || "Movie description not available.";
-        var imageUrl = "https://image.tmdb.org/t/p/w300/" + (movie.poster_path || "default.jpg");
-
-        var metaTags = [
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: description },
-          { name: 'twitter:image', content: imageUrl }
-        ];
-
-        metaTags.forEach(function (tag) {
-          var metaElement = document.querySelector('meta[name="' + tag.name + '"]');
-          if (metaElement) {
-            metaElement.setAttribute('content', tag.content);
-          } else {
-            metaElement = document.createElement('meta');
-            metaElement.setAttribute('name', tag.name);
-            metaElement.setAttribute('content', tag.content);
-            document.head.appendChild(metaElement);
-          }
-        });
-      }
-    }
-    
-    // Fetch movie details and update meta tags
-    var movieId = getUrlParameters().id.split("/")[0]; // Assuming URL format `id/title`
-    if (movieId) {
-      $http.get("https://api.themoviedb.org/3/movie/" + movieId + "?language=en-US&api_key=" + apiKey)
-        .then(function (response) {
-          vm.movie = response.data;
-          $scope.pageTitle = vm.movie.title ? vm.movie.title + " - Best MovieTV21" : "Title not found - Best MovieTV21";
-          document.title = $scope.pageTitle;
-          updateTwitterMetaTags(vm.movie); // Ensure this is called after data is loaded
-        })
-        .catch(function (error) {
-          console.error("Error fetching movie details:", error);
-        });
-    }
-  
 $scope.goToMovieDetail = function (id, title) {
-  // Mengganti spasi dengan tanda "-" dan mengubah huruf menjadi huruf kecil (lowercase)
+  // Mengganti spasi "-" dan mengubah menjadi (lowercase)
   var formattedTitle = title.replace(/:/g, '').replace(/ /g, '-').toLowerCase();
   
-  // Lakukan aksi yang sesuai saat elemen diklik.
-  // Redirect ke halaman detail film dengan parameter ID dan judul yang telah diformat
+  // Redirect ke halaman detail film 
   $window.location.href = "/p/movie.html?id=" + id + "/" + formattedTitle;
 };
   });
