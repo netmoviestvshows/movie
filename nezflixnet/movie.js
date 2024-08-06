@@ -1,5 +1,14 @@
 angular
         .module("mtApp", [])
+        .filter("titleTag", function () {
+    return function (input) {
+      if (!input) return "";
+      // Replace "&" with "And"
+      input = input.replace(/&/g, "And");
+      // Remove "-", "'", "\" and non-alphanumeric characters
+      return input.replace(/[-'"]/g, "").replace(/[^a-zA-Z0-9]/g, "");
+    };
+})
         .filter("duration", function () {
     return function (input) {
       // Konversi waktu dari menit ke format "jam:menit:detik"
@@ -226,6 +235,10 @@ $scope.getRandomImagePath = function() {
             .get(movieDetailUrl)
             .then(function (response) {
               $scope.movie = response.data;
+
+              // Mendapatkan data produksi dari respons
+      $scope.movie.formattedTitless = response.data.title.replace(/:/g, '').replace(/ /g, '-').toLowerCase();
+      var productionCountries = $scope.movie.production_countries;
 
               // Mendapatkan data produksi dari respons
               var productionCountries = $scope.movie.production_countries;
