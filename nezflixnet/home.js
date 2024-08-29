@@ -100,40 +100,33 @@ angular
               console.error("Error fetching TV shows on air:", error);
             });
     
-          function getLatestEpisodeData(tvShowId) {
-            var latestEpisodeUrl = `https://api.themoviedb.org/3/tv/${tvShowId}/season/1?api_key=${apiKey}`;
-    
-            $http
-              .get(latestEpisodeUrl)
-              .then(function (episodeResponse) {
-                if (
-                  episodeResponse.data.episodes &&
-                  episodeResponse.data.episodes.length > 0
-                ) {
-                  const latestEpisode = episodeResponse.data.episodes.pop();
-                  // Tambahkan informasi episode terbaru ke properti tvShow
-                  var tvShow = $scope.tvShowsOnAir.find(function (tv) {
-                    return tv.id === tvShowId;
-                  });
-                  tvShow.latestEpisodeData = {
-                    episode_number: latestEpisode.episode_number,
-                    air_date: latestEpisode.air_date,
-                  };
-                } else {
-                  throw new Error(
-                    "No episodes found for TV show with ID: " + tvShowId
-                  );
-                }
-              })
-              .catch(function (error) {
-                console.error(
-                  "Error fetching latest episode data for TV show with ID " +
-                    tvShowId +
-                    ":",
-                  error
-                );
-              });
-          }
+            function getLatestEpisodeData(tvShowId) {
+              var tvShowUrl = `https://api.themoviedb.org/3/tv/${tvShowId}?api_key=${apiKey}`;
+            
+              $http.get(tvShowUrl)
+                .then(function (response) {
+                  // Mendapatkan data "Last Aired Episode"
+                  const lastAiredEpisode = response.data.last_episode_to_air;
+            
+                  if (lastAiredEpisode) {
+                    // Tambahkan informasi episode terbaru yang sudah ditayangkan ke properti tvShow
+                    var tvShow = $scope.tvShowsOnAir.find(function (tv) {
+                      return tv.id === tvShowId;
+                    });
+                    tvShow.latestEpisodeData = {
+                      episode_number: lastAiredEpisode.episode_number,
+                      air_date: lastAiredEpisode.air_date,
+                      season_number: lastAiredEpisode.season_number,
+                      name: lastAiredEpisode.name,
+                    };
+                  } else {
+                    throw new Error('No last aired episode found for TV show with ID: ' + tvShowId);
+                  }
+                })
+                .catch(function (error) {
+                  console.error("Error fetching last aired episode data for TV show with ID " + tvShowId + ":", error);
+                });
+            }
     
           // Memperbarui fungsi untuk menambahkan judul dalam URL
           $scope.goToTvDetail = function (tvId, tvTitle) {
