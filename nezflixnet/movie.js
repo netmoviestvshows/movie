@@ -163,11 +163,25 @@ $http
   .then(function (response) {
     $scope.movieImages = response.data.backdrops; 
     $scope.moviePoster = response.data.posters; 
+    $scope.movieImagesDesc = response.data.backdrops;
+    $scope.moviePosterDesc = response.data.posters;
+    $scope.currentBackdropIndex = 0; 
+    $scope.currentPosterIndex = 0;
   })
   .catch(function (error) {
     console.error("Error fetching movie images:", error);
     console.log($scope.getPosterUrl(image.file_path));
   });
+
+   // Fungsi untuk mengganti backdrop saat diklik
+   $scope.changeBackdrop = function() {
+    // Increment indeks untuk menampilkan gambar berikutnya
+    $scope.currentBackdropIndex = ($scope.currentBackdropIndex + 1) % $scope.movieImagesDesc.length;
+    };
+    $scope.changePoster = function() {
+    // Increment indeks untuk menampilkan gambar berikutnya
+    $scope.currentPosterIndex = ($scope.currentPosterIndex + 1) % $scope.moviePosterDesc.length;
+    };
 
 // IMAGE Random for Video Play
 $scope.getRandomImagePath = function() {
