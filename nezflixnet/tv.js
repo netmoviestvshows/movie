@@ -17,7 +17,7 @@ angular
                 );
               };
             })
-            .controller("mtController", function ($scope, $http, $window) {
+            .controller("mtController", function ($scope, $http, $window, $timeout) {
               var tvId = getParameterByName("id");
         
               $scope.searchMediaType = "movie"; // Set jenis pencarian default ke "Movie"
@@ -73,6 +73,54 @@ angular
                   function (response) {
                     $scope.tvShow = response.data;
         
+                     // Set page title
+          document.title = $scope.tvShow.name + " - BestMovieTV21";
+  
+          // Jika ada deskripsi singkat dari TV Show
+          var shortOverview = $scope.tvShow.overview
+            ? $scope.tvShow.overview.substring(0, 150) + "..."
+            : "BestMovieTV21";
+  
+          // Menambahkan meta tags dinamis
+          setMetaTags($scope.tvShow.name, shortOverview, $scope.getPosterUrl($scope.tvShow.poster_path));
+        },
+        function (error) {
+          console.error("Error saat mengambil detail acara TV:", error);
+        
+     
+  
+    // Fungsi untuk mengatur meta tags Open Graph dan Twitter secara dinamis
+    function setMetaTags(title, description, imageUrl) {
+      // Open Graph tags
+      setMetaTag("og:title", title);
+      setMetaTag("og:description", description);
+      setMetaTag("og:image", imageUrl);
+      setMetaTag("og:url", $window.location.href);
+      setMetaTag("og:type", "website");
+  
+      // Twitter Card tags
+      setMetaTag("twitter:card", "summary_large_image");
+      setMetaTag("twitter:title", title);
+      setMetaTag("twitter:description", description);
+      setMetaTag("twitter:image", imageUrl);
+    }
+  
+    // Helper function to create or update meta tag
+    function setMetaTag(property, content) {
+      var metaTag = document.querySelector(`meta[property="${property}"], meta[name="${property}"]`);
+      if (!metaTag) {
+        metaTag = document.createElement("meta");
+        if (property.startsWith("og:") || property.startsWith("twitter:")) {
+          metaTag.setAttribute("property", property);
+        } else {
+          metaTag.setAttribute("name", property);
+        }
+        document.getElementsByTagName("head")[0].appendChild(metaTag);
+      }
+      metaTag.setAttribute("content", content);
+    }
+
+  
                     // tvShow Produksi Negara
                     if (
                       $scope.tvShow.production_countries &&
