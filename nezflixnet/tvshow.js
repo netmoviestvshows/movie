@@ -15,7 +15,7 @@ angular
       return formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
     };
   })
-        .controller("mtController", function ($scope, $http, $window) {
+        .controller("mtController", function ($scope, $http, $window, $document, $timeout) {
           var apiKey = "a79576e54c5bbb893011b98ca48f2460";
           var tvIdSeasonEpisode = getParameterByName("id");
           var tvIdParts = tvIdSeasonEpisode.split("-");
@@ -28,6 +28,57 @@ angular
            // Variabel untuk menyimpan daftar episode
           $scope.episodes = [];
           
+
+   // Fungsi untuk menambahkan meta tags
+function setMetaTags(tvSeriesTitle, tvSeriesOverview, tvSeriesPoster) {
+    // Judul halaman
+    $window.document.title = tvSeriesTitle  + " - Season " + seasonNumber + " Episode " + episodeNumber;
+  
+    // Menambahkan meta tag description
+    var metaDescription = $document[0].querySelector('meta[name="description"]');
+    if (!metaDescription) {
+        metaDescription = $document[0].createElement('meta');
+        metaDescription.name = "description";
+        $document[0].head.appendChild(metaDescription);
+    }
+    metaDescription.content = tvSeriesOverview;
+  
+    // Menambahkan meta tag untuk social sharing (Open Graph Protocol)
+    var ogTitle = $document[0].querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+        ogTitle = $document[0].createElement('meta');
+        ogTitle.setAttribute("property", "og:title");
+        $document[0].head.appendChild(ogTitle);
+    }
+    ogTitle.setAttribute("content", tvSeriesTitle);
+  
+    var ogDescription = $document[0].querySelector('meta[property="og:description"]');
+    if (!ogDescription) {
+        ogDescription = $document[0].createElement('meta');
+        ogDescription.setAttribute("property", "og:description");
+        $document[0].head.appendChild(ogDescription);
+    }
+    ogDescription.setAttribute("content", tvSeriesOverview);
+  
+    var ogImage = $document[0].querySelector('meta[property="og:image"]');
+    if (!ogImage) {
+        ogImage = $document[0].createElement('meta');
+        ogImage.setAttribute("property", "og:image");
+        $document[0].head.appendChild(ogImage);
+    }
+    ogImage.setAttribute("content", "https://image.tmdb.org/t/p/w500" + tvSeriesPoster);
+  
+    console.log('Meta tags set:', {
+        title: tvSeriesTitle,
+        description: tvSeriesOverview,
+        image: "https://image.tmdb.org/t/p/w500" + tvSeriesPoster
+    });
+  }
+  
+  // Update meta tags dengan data yang benar
+  $timeout(function() {
+    setMetaTags($scope.tvSeriesTitle, $scope.tvSeriesOverview, $scope.tvSeriesPoster);
+  }, 100);
 
 if (!isNaN(seasonNumber) && !isNaN(episodeNumber)) {
             var episodeUrl =
@@ -92,6 +143,14 @@ if (!isNaN(seasonNumber) && !isNaN(episodeNumber)) {
     return creator.name;
   })
   .join(", ");
+
+   // Panggil fungsi setMetaTags untuk memperbarui meta tags
+   setMetaTags($scope.tvSeriesTitle, $scope.tvSeriesOverview, $scope.tvSeriesPoster);
+},
+function (error) {
+  console.error("Error fetching TV series detail:", error);
+
+
 
   // similar TVSHOW
       $http.get(
@@ -225,11 +284,51 @@ $scope.getAlternativeTitles();
             }
           );
 
-              },
-              function (error) {
-                console.error("Error fetching TV series detail:", error);
-              }
-            );
+             // Update meta tags dengan data yang benar
+          $timeout(function() {
+            var titleTag = $document[0].querySelector('meta[name="description"]');
+            var keywordsTag = $document[0].querySelector('meta[name="keywords"]');
+            var authorTag = $document[0].querySelector('meta[name="author"]');
+            var ogTitleTag = $document[0].querySelector('meta[property="og:title"]');
+            var ogDescriptionTag = $document[0].querySelector('meta[property="og:description"]');
+            var ogImageTag = $document[0].querySelector('meta[property="og:image"]');
+            var twitterTitleTag = $document[0].querySelector('meta[name="twitter:title"]');
+            var twitterDescriptionTag = $document[0].querySelector('meta[name="twitter:description"]');
+            var twitterImageTag = $document[0].querySelector('meta[name="twitter:image"]');
+
+            if (titleTag) {
+                titleTag.setAttribute("content", $scope.tvSeriesOverview || "");
+            }
+            if (keywordsTag) {
+                keywordsTag.setAttribute("content", "tv show, " + ($scope.tvSeriesTitle || "") + ", " + ($scope.tvSeriesGenre || ""));
+            }
+            if (authorTag) {
+                authorTag.setAttribute("content", $scope.tvSeriesCreator || "");
+            }
+            if (ogTitleTag) {
+                ogTitleTag.setAttribute("content", $scope.tvSeriesTitle || "");
+            }
+            if (ogDescriptionTag) {
+                ogDescriptionTag.setAttribute("content", $scope.tvSeriesOverview || "");
+            }
+            if (ogImageTag) {
+                ogImageTag.setAttribute("content", $scope.getPosterUrl($scope.tvSeriesPoster) || "");
+            }
+            if (twitterTitleTag) {
+                twitterTitleTag.setAttribute("content", $scope.tvSeriesTitle || "");
+            }
+            if (twitterDescriptionTag) {
+                twitterDescriptionTag.setAttribute("content", $scope.tvSeriesOverview || "");
+            }
+            if (twitterImageTag) {
+                twitterImageTag.setAttribute("content", $scope.getPosterUrl($scope.tvSeriesPoster) || "");
+            }
+        }, 0);
+    },
+    function (error) {
+        console.error("Error fetching TV series detail:", error);
+    }
+);
 
             // Mendapatkan informasi dari Season TV dari API
             var tvSeasonUrl =
