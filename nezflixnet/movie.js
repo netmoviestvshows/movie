@@ -52,6 +52,14 @@ angular
       if (ogImage) ogImage.setAttribute('content', imageUrl);
       if (ogUrl) ogUrl.setAttribute('content', url);
 
+       // Log meta tag values
+       console.log("OG Meta Tags:", {
+        title: ogTitle.getAttribute('content'),
+        description: ogDescription.getAttribute('content'),
+        image: ogImage.getAttribute('content'),
+        url: ogUrl.getAttribute('content')
+    });
+
          // Twitter meta tags
       var twitterTitle = document.querySelector('meta[name="twitter:title"]');
       var twitterDescription = document.querySelector('meta[name="twitter:description"]');
@@ -62,6 +70,14 @@ angular
       if (twitterDescription) twitterDescription.setAttribute('content', description);
       if (twitterImage) twitterImage.setAttribute('content', imageUrl);
       if (twitterUrl) twitterUrl.setAttribute('content', url);
+
+      // Log Twitter meta tag values
+      console.log("Twitter Meta Tags:", {
+        title: twitterTitle.getAttribute('content'),
+        description: twitterDescription.getAttribute('content'),
+        image: twitterImage.getAttribute('content'),
+        url: twitterUrl.getAttribute('content')
+    });
 
         // Set the page title with prefix and suffix
   var formattedTitle = 'Watch ' + title + ' - BestMovieTV21';
