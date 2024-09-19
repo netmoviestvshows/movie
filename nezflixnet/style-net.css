@@ -599,6 +599,7 @@ article.media:hover {
   min-height: 100%;
 }
 .fontSeason {font-size :11px;}
+.heading-season-list {margin-bottom: 1px;}
 span.star {
   position: absolute;
   top: 0;
