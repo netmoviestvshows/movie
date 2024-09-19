@@ -2648,13 +2648,22 @@ div.rating-critic {
   left: 5px;
 }
 .label-eps {
-top: 30px;
-    left: 5px;
+    background: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    line-height: 1;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
     position: absolute;
-    padding: 2px 4px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #00e5ff;
-    font-size: 12px;
+    top: 25px;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    padding-top: 5px;
+    padding-left: 1px;
+    border: 2px dotted #fff;
     z-index: 1;
 }
 .label-rating {
