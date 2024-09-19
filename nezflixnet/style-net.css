@@ -2650,7 +2650,7 @@ div.rating-critic {
 .label-eps {
     background: rgba(0, 0, 0, .5);
     color: #fff;
-    font-size: 10px;
+    font-size: 11px;
     text-align: center;
     line-height: 1;
     width: 38px;
@@ -2662,7 +2662,7 @@ div.rating-critic {
     right: 0;
     margin: auto auto;
     padding-top: 5px;
-    padding-left: 1px;
+    padding-left: 0px;
     border: 2px dotted #fff;
     z-index: 1;
 }
