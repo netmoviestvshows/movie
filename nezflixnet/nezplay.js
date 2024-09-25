@@ -96,27 +96,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
 var accessToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YTcwYTMwYjk1ODE5Y2IzMjA3ZTUxZjE4ZGFiNDgzNCIsInN1YiI6IjYxY2YxOTEyYWY2ZTk0MDA5ODQ3OGRkZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pNjePjoP03wPNnH-lYvGa9Uqn0g6WIm1WzQXaOY3Vj8';
-
-
-// off canavas
-$(document).ready(function () {
-  $('[data-toggle="offcanvas"]').click(function () {
-    $($(this).data("target")).toggleClass("show");
-  });
-
-  $(".close").click(function () {
-    $(this).parents(".offcanvas").removeClass("show");
-  });
-});
-// navbar icon
-$(document).ready(function () {
-  var button = $(".navbar-toggle");
-  var icon = $("#my-icon");
-  button.on("click", function () {
-    if (icon.attr("icon") === "line-md:close-to-menu-transition") {
-      icon.attr("icon", "line-md:menu-to-close-transition");
-    } else {
-      icon.attr("icon", "line-md:close-to-menu-transition");
-    }
-  });
-});
