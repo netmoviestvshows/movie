@@ -76,7 +76,7 @@ $scope.toggleBiography = function() {
       };
 
     // Fungsi untuk mengarahkan pengguna ke halaman yang sesuai pada pencarian
-  $scope.goToMediaDetail = function(media) {
+  $scope.goToMediaDetail = function(media, additionalInfo) {
     var additionalInfo = media.title || media.name;
               additionalInfo = additionalInfo
                 .toLowerCase()
@@ -84,10 +84,10 @@ $scope.toggleBiography = function() {
               additionalInfo = encodeURIComponent(additionalInfo);
     if (media.media_type === 'movie') {
       // Jika media adalah movie, redirect ke halaman movie
-      $window.location.href = `/p/movie.html?id=${media.id}/`;
+      $window.location.href = `/p/movie.html?id=${media.id}/${additionalInfo}`;
     } else if (media.media_type === 'tv') {
       // Jika media adalah TV show, redirect ke halaman TV
-      $window.location.href = `/p/tv.html?id=${media.id}/`;
+      $window.location.href = `/p/tv.html?id=${media.id}/${additionalInfo}`;
     }
   };
 });
