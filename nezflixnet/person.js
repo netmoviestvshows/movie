@@ -84,10 +84,10 @@ $scope.toggleBiography = function() {
               additionalInfo = encodeURIComponent(additionalInfo);
     if (media.media_type === 'movie') {
       // Jika media adalah movie, redirect ke halaman movie
-      $window.location.href = `/p/movie.html?id=${media.id}/${additionalInfo}`;
+      $window.location.href = `/p/movie.html?id=${media.id}/`;
     } else if (media.media_type === 'tv') {
       // Jika media adalah TV show, redirect ke halaman TV
-      $window.location.href = `/p/tv.html?id=${media.id}/${additionalInfo}`;
+      $window.location.href = `/p/tv.html?id=${media.id}/`;
     }
   };
 });
