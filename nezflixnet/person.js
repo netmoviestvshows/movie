@@ -91,3 +91,10 @@ $scope.toggleBiography = function() {
     }
   };
 });
+app.filter('replaceSpaces', function() {
+  return function(input) {
+    if (!input) return '';
+    // Menghapus karakter non-alfabet dan mengganti spasi dengan tanda hubung
+    return input.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-');
+  };
+});
