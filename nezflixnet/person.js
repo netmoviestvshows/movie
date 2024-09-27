@@ -76,7 +76,7 @@ $scope.toggleBiography = function() {
       };
 
     // Fungsi untuk mengarahkan pengguna ke halaman yang sesuai pada pencarian
-  $scope.goToMediaDetail = function(media, additionalInfo) {
+  $scope.getMediaUrl = function(media, additionalInfo) {
     var additionalInfo = media.title || media.name;
               additionalInfo = additionalInfo
                 .toLowerCase()
