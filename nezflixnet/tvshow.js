@@ -113,22 +113,110 @@ if (!isNaN(seasonNumber) && !isNaN(episodeNumber)) {
 );
  
 // AIRING Today
-           $http
-              .get(
-                "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1&api_key=" + apiKey
-              )
-              .then(function (response) {
-                $scope.AiringToday = response.data.results;
+$http
+  .get(
+    "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1&api_key=" +
+      apiKey
+  )
+  .then(function (response) {
+    $scope.AiringToday = response.data.results;
+
+    // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+    var today = new Date().toISOString().slice(0, 10);
+
+    // Loop untuk mendapatkan detail setiap show
+    $scope.AiringToday.forEach(function (show) {
+      // Panggil API untuk mendapatkan detail show termasuk season terakhir
+      $http
+        .get(
+          "https://api.themoviedb.org/3/tv/" +
+            show.id +
+            "?language=en-US&api_key=" +
+            apiKey
+        )
+        .then(function (showResponse) {
+          var seasons = showResponse.data.seasons;
+          var lastSeason = seasons[seasons.length - 1]; // Season terakhir
+
+          // Simpan data season terakhir di AiringToday
+          show.latestSeasonData = lastSeason;
+
+          // Panggil API untuk mendapatkan semua episode di season terakhir
+          $http
+            .get(
+              "https://api.themoviedb.org/3/tv/" +
+                show.id +
+                "/season/" +
+                lastSeason.season_number +
+                "?language=en-US&api_key=" +
+                apiKey
+            )
+            .then(function (seasonResponse) {
+              var episodes = seasonResponse.data.episodes;
+
+              // Cari episode yang tayang hari ini
+              var airingEpisode = episodes.find(function (episode) {
+                return episode.air_date === today;
               });
 
-       // ON THE AIR TV SHOW
-           $http
-              .get(
-                "https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1&api_key=" + apiKey
-              )
-              .then(function (response) {
-                $scope.onTheAir = response.data.results;
-              });
+              // Simpan data episode yang sedang tayang (jika ada)
+              if (airingEpisode) {
+                show.currentlyAiringEpisode = airingEpisode;
+              }
+            });
+        });
+    });
+  });
+
+
+
+   // ON THE AIR TV SHOW
+// URL untuk mengambil acara TV yang sedang on air
+const tvOnAirUrl = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${apiKey}&language=en-US&page=1`;
+
+// Ambil acara TV yang sedang on air
+$http
+  .get(tvOnAirUrl)
+  .then(function (response) {
+    $scope.tvShowsOnAir = response.data.results.slice(0, 16); // Ambil 16 acara TV
+
+    // Ambil informasi episode terbaru untuk setiap acara TV
+    angular.forEach($scope.tvShowsOnAir, function (tvShow) {
+      getLatestEpisodeData(tvShow.id);
+    });
+  })
+  .catch(function (error) {
+    console.error("Error fetching TV shows on air:", error);
+  });
+
+// Fungsi untuk mendapatkan data episode terakhir yang tayang
+function getLatestEpisodeData(tvShowId) {
+  var tvShowUrl = `https://api.themoviedb.org/3/tv/${tvShowId}?api_key=${apiKey}`;
+
+  $http.get(tvShowUrl)
+    .then(function (response) {
+      // Mendapatkan data "Last Aired Episode"
+      const lastAiredEpisode = response.data.last_episode_to_air;
+
+      if (lastAiredEpisode) {
+        // Tambahkan informasi episode terbaru yang sudah ditayangkan ke properti tvShow
+        var tvShow = $scope.tvShowsOnAir.find(function (tv) {
+          return tv.id === tvShowId;
+        });
+        tvShow.latestEpisodeData = {
+          episode_number: lastAiredEpisode.episode_number,
+          air_date: lastAiredEpisode.air_date,
+          season_number: lastAiredEpisode.season_number,
+          name: lastAiredEpisode.name,
+        };
+      } else {
+        throw new Error('No last aired episode found for TV show with ID: ' + tvShowId);
+      }
+    })
+    .catch(function (error) {
+      console.error("Error fetching last aired episode data for TV show with ID " + tvShowId + ":", error);
+    });
+}
 
   // CAST
   var tvSeriesUrl =
@@ -476,4 +564,3 @@ function updateUrlParameter(key, value) {
    };
             
 });
-
