@@ -1,6 +1,4 @@
 var app = angular.module('movieApp', []);
-
-        // Filter custom untuk membatasi jumlah kata
         app.filter('limitToWords', function () {
             return function (input, limit) {
                 if (!input) return '';
@@ -13,28 +11,31 @@ var app = angular.module('movieApp', []);
             };
         });
 
-        // Buat controller untuk mengambil data movie atau TV show
         app.controller('MovieController', ['$scope', '$http', function($scope, $http) {
             var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
             var baseUrl = 'https://api.themoviedb.org/3/';
+            $scope.cast = [];
 
-            // Inisialisasi tipe dari variabel global
-            $scope.type = type;
+           $scope.type = type;
+           $scope.season = season;
 
-            // Fungsi untuk mengonversi tanggal ke format Bulan, Tanggal Tahun
             $scope.convertDate = function(dateString) {
                 var options = { year: 'numeric', month: 'long', day: 'numeric' };
                 var date = new Date(dateString);
                 return date.toLocaleDateString('en-US', options);
             };
 
-            // Fungsi untuk mengonversi tanggal ke format Tahun saja
             $scope.getYear = function(dateString) {
                 var date = new Date(dateString);
                 return date.getFullYear();
             };
 
-             // Fungsi untuk mengambil data season dari TV show
+            $scope.getLimitedCast = function(limit) {
+                return $scope.cast.slice(0, limit).map(function(member) {
+                    return member.name;
+                }).join(', ');
+            };
+
              $scope.fetchSeasonDetails = function(id, season) {
                 $http.get(`${baseUrl}tv/${id}/season/${season}?api_key=${apiKey}`)
                     .then(function(response) {
@@ -46,31 +47,30 @@ var app = angular.module('movieApp', []);
                         console.error('Error fetching season details:', error);
                     });
             };
-            
-            // Fungsi untuk mengambil detail movie atau TV show
-            $scope.fetchDetails = function(id, type) {
-                $http.get(`${baseUrl}${type}/${id}?api_key=${apiKey}`)
+
+            if (type === 'movie') {
+                $http.get(baseUrl + 'movie/' + id + '?api_key=' + apiKey + '&append_to_response=credits')
                     .then(function(response) {
                         $scope.details = response.data;
-                        
-                        // Tambahkan log untuk memeriksa apakah data tersedia
-                        console.log('Details Data:', $scope.details);
-
-                        if (type === 'movie') {
-                            console.log('Production Companies:', $scope.details.production_companies);
-                        } else if (type === 'tv') {
-                            $scope.fetchSeasonDetails(id, season);
-                        
-                            console.log('Networks:', $scope.details.networks);
-                        }
+                        $scope.cast = response.data.credits.cast;
+                        console.log('Movie Data:', $scope.details);
                     })
                     .catch(function(error) {
-                        $scope.errorMessage = 'Data tidak ditemukan atau terjadi kesalahan.';
-                        console.error('Error fetching details:', error);
+                        $scope.errorMessage = 'Data movie tidak ditemukan atau terjadi kesalahan.';
+                        console.error('Error fetching movie details:', error);
                     });
-            };
+            } else if (type === 'tv') {
+                $http.get(baseUrl + 'tv/' + id + '?api_key=' + apiKey + '&append_to_response=credits')
+                    .then(function(response) {
+                        $scope.details = response.data;
+                        $scope.cast = response.data.credits.cast;
+                        console.log('TV Show Data:', $scope.details);
 
-            // Panggil fungsi untuk menampilkan data detail
-            $scope.fetchDetails(id, type);
-
+                        $scope.fetchSeasonDetails(id, season);
+                    })
+                    .catch(function(error) {
+                        $scope.errorMessage = 'Data TV show tidak ditemukan atau terjadi kesalahan.';
+                        console.error('Error fetching TV show details:', error);
+                    });
+            }
         }]);
