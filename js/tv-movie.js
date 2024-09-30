@@ -11,11 +11,11 @@ var app = angular.module('movieApp', []);
             };
         });
 
-        app.controller('MovieController', ['$scope', '$http', function($scope, $http) {
+        app.controller('MovieController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
             var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
             var baseUrl = 'https://api.themoviedb.org/3/';
             $scope.cast = [];
-            $scope.loading = true; // Set loading to true
+            $scope.loading = true; 
             $scope.type = type;
             $scope.season = season;
 
@@ -48,24 +48,34 @@ var app = angular.module('movieApp', []);
                     });
             };
 
-            $scope.fetchData = function() {
-                var endpoint = $scope.type === 'tv' ? 'tv/' + id : 'movie/' + id;
-                var url = baseUrl + endpoint + '?api_key=' + apiKey + '&append_to_response=credits';
-
-                $http.get(url)
+            if (type === 'movie') {
+                $http.get(baseUrl + 'movie/' + id + '?api_key=' + apiKey + '&append_to_response=credits')
                     .then(function(response) {
                         $scope.details = response.data;
                         $scope.cast = response.data.credits.cast;
-                        $scope.loading = false; // Set loading to false when data is loaded
-                        
+                        console.log('Movie Data:', $scope.details);
                     })
                     .catch(function(error) {
-                        console.error('Error fetching data:', error);
-                        $scope.errorMessage = 'Gagal memuat data.';
-                        $scope.loading = false; // Set loading to false even if there's an error
+                        $scope.errorMessage = 'Data movie tidak ditemukan atau terjadi kesalahan.';
+                        console.error('Error fetching movie details:', error);
                     });
-            };
+            } else if (type === 'tv') {
+                $http.get(baseUrl + 'tv/' + id + '?api_key=' + apiKey + '&append_to_response=credits')
+                    .then(function(response) {
+                        $scope.details = response.data;
+                        $scope.cast = response.data.credits.cast;
+                        console.log('TV Show Data:', $scope.details);
 
-            $scope.fetchSeasonDetails(id, season);
-            $scope.fetchData();
+                        $scope.fetchSeasonDetails(id, season);
+                    })
+                    .catch(function(error) {
+                        $scope.errorMessage = 'Data TV show tidak ditemukan atau terjadi kesalahan.';
+                        console.error('Error fetching TV show details:', error);
+                    });
+            }
+
+            // Menetapkan waktu loading selama 5 detik
+            $timeout(function() {
+                $scope.loading = false; // Sembunyikan animasi loading setelah 5 detik
+            }, 3300);
         }]);
