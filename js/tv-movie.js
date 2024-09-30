@@ -12,7 +12,7 @@ var app = angular.module('movieApp', []);
         });
 
         app.controller('MovieController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
-            var apiKey = 'b2b355392c45da4dad92e5cac927bab4';
+            var apiKey = '6a70a30b95819cb3207e51f18dab4834';
             var baseUrl = 'https://api.themoviedb.org/3/';
             $scope.cast = [];
             $scope.loading = true; 
@@ -77,5 +77,5 @@ var app = angular.module('movieApp', []);
             // Menetapkan waktu loading selama 5 detik
             $timeout(function() {
                 $scope.loading = false; // Sembunyikan animasi loading setelah 5 detik
-            }, 3300);
+            }, 3000);
         }]);
