@@ -471,7 +471,7 @@ if (game.period && game.period > 0) {
                           gameDiv.style.backgroundSize = 'contain'; // Mengatur ukuran background
                           gameDiv.style.backgroundPosition = 'center'; // Mengatur posisi background
                           gameDiv.style.backgroundRepeat = 'no-repeat'; // Mengatur pengulangan background
-                          gameDiv.style.color = 'black'; // Mengubah warna teks agar kontras dengan background
+                          // gameDiv.style.color = 'black'; // Mengubah warna teks agar kontras dengan background
 
                           mlbDataElement.appendChild(gameDiv);
                       });
@@ -576,7 +576,7 @@ if (game.period && game.period > 0) {
                           gameDiv.style.backgroundSize = 'contain'; // Mengatur ukuran background
                           gameDiv.style.backgroundPosition = 'center'; // Mengatur posisi background
                           gameDiv.style.backgroundRepeat = 'no-repeat'; // Mengatur pengulangan background
-                          gameDiv.style.color = 'black'; // Mengubah warna teks agar kontras dengan background
+                          // gameDiv.style.color = 'black'; // Mengubah warna teks agar kontras dengan background
 
                           mlbDataElement.appendChild(gameDiv);
                       });
