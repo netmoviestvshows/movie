@@ -72,7 +72,7 @@
 
               const leagueLogoDisplay = leagueLogoUrl
                 ? `<img src="${leagueLogoUrl}" alt="${match.leagueEn} Logo" />`
-                : '<img src="../images/default.png" alt="Default Logo" />';
+                : '<img src="https://netmoviestvshows.github.io/movie/image-sports/default.png" alt="Default Logo" />';
 
               const matchStartTime = new Date(match.matchTime_t);
               const currentTime = new Date();
