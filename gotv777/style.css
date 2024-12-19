@@ -299,7 +299,7 @@
         display: block;
       }
       
-      @media (max-width: 430px) {
+      @media (max-width: 633px) {
       .tab-btn {
         padding: 5px;
         font-size: 13px;
