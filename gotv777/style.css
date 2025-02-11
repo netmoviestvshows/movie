@@ -194,6 +194,7 @@
       }
 
       .card-info {
+        font-family: monospace;
         text-shadow: 0 0 1px #ffffff;
         font-size: 11px;
         margin: 5px 2px;
